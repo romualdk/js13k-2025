@@ -29,3 +29,12 @@ A compact, single-screen cult simulator starring Nyx, a divine black cat. Player
   - Moonhowl: Summons rare followers or relics
 
 - Unlock upgrades (e.g., faster worship, more ritual slots) through a simple
+
+### Components
+
+1. Black Cat
+- Idle animation / bouncing like sheep in Cult of the lamb
+- Actions - different eyes
+2. Followers
+- Randomly generated
+3. Forest
