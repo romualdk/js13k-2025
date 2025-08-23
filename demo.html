@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enemy Circle</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 900px;
+      overflow: hidden;
+    }
+
+    .floor {
+      width: 800px;
+      height: 800px;
+      transform-style: preserve-3d;
+      transform: rotateX(60deg);
+      position: relative;
+      background-color: red;
+      border-radius: 50%;
+      
+    }
+
+    .circle {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      /*animation: rotate 15s linear infinite;*/
+      animation: rhythmicSpin 15s cubic-bezier(0.65, 0.05, 0.35, 1) infinite;
+      transform-style: preserve-3d;
+    }
+
+    .enemy {
+      width: 15px;
+      height: 15px;
+      background-color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+      transform:  rotate(var(--angle)) translateX(300px) rotate(calc(-1 * calc(var(--circle-rotation, 0deg) + var(--angle))));
+      transform-origin: center center;
+    }
+
+    
+
+    @keyframes rotate {
+      from { transform: rotateZ(0deg); }
+      to { transform: rotateZ(360deg); }
+    }
+
+@keyframes rhythmicSpin {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(90deg); }
+  50%  { transform: rotate(180deg); }
+  75%  { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+    .enemy img {
+        width: 180px;
+        height: 180px;
+        transform: translateZ(30px) rotateX(-60deg);
+        margin-left: -70px;
+        margin-top: -90px;
+    }
+
+    .cat {
+        transform: rotateX(-60deg);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+    .cat img { 
+        width: 240px;
+        height: 240px;
+        margin-left: -100px;
+        margin-top: -100px;
+    }
+  </style>
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const circle = document.querySelector('.circle');
+  const squares = document.querySelectorAll('.enemy');
+
+  function updateRotation() {
+    const style = getComputedStyle(circle);
+    const matrix = style.transform;
+
+    if (matrix !== 'none') {
+      const values = matrix.split('(')[1].split(')')[0].split(',');
+      const a = parseFloat(values[0]);
+      const b = parseFloat(values[1]);
+      const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+
+      squares.forEach(square => {
+        square.style.setProperty('--circle-rotation', `${angle}deg`);
+      });
+    }
+
+    requestAnimationFrame(updateRotation);
+  }
+
+  updateRotation();
+});
+</script>
+<body>
+  <div class="floor">
+    <div class="cat"><img src="cat.svg" /></div>
+    <div class="circle">
+      <!-- Enemies placed in a circle -->
+      <div class="enemy" style="--angle: 0deg"><img src="cat.svg" /></div>
+      <div class="enemy" style="--angle: 60deg"><img src="cat.svg" /></div>
+      <div class="enemy" style="--angle: 120deg"><img src="cat.svg" /></div>
+      <div class="enemy" style="--angle: 180deg"><img src="cat.svg" /></div>
+      <div class="enemy" style="--angle: 240deg"><img src="cat.svg" /></div>
+      <div class="enemy" style="--angle: 300deg"><img src="cat.svg" /></div>
+    </div>
+  </div>
+</body>
+</html> 

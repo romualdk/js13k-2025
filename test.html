@@ -1,0 +1,181 @@
+<html>
+<body>
+
+
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg {
+    background-color: #aaa;
+}
+
+@keyframes rotate-head {
+  0% { transform: rotate(10deg); }
+  100% { transform: rotate(-10deg); offset-distance: 100%; }
+}
+
+@keyframes rotate-bell {
+  0% { transform: rotate(-30deg); }
+  100% { transform: rotate(30deg); }
+}
+
+@keyframes skew-body {
+    0% { transform: skewX(15deg); }
+    100% { transform: skewX(-15deg); }
+}
+
+.dancing .head {
+  offset-path: path('M105,150 Q125,130 145,150');
+  offset-rotate: 0deg;
+  transform-origin: 125px 150px;
+  animation: rotate-head 0.6s linear infinite alternate;
+}
+
+.dancing .bell {
+    transform-origin: 125px 152px;
+    animation: rotate-bell 0.6s linear infinite alternate;
+}
+
+.dancing .body {
+    transform-origin: 125px 215px;
+    animation: skew-body 0.6s linear infinite alternate;
+}
+
+@keyframes hand-left {
+  0% { transform: translate(95px, 152px) rotate(10deg); }
+  100% { transform: translate(120px, 152px) rotate(55deg); }
+}
+
+@keyframes hand-right {
+  0% { transform: translate(130px, 152px) rotate(-60deg); }
+  100% { transform: translate(155px, 152px) rotate(-15deg); }
+}
+
+.dancing .left-hand {
+    animation: hand-left 0.6s linear infinite alternate;
+}
+
+.dancing .right-hand {
+    animation: hand-right 0.6s linear infinite alternate;
+}
+
+@keyframes leg-left {
+    0% { transform: translate(115px, 175px) skewX(15deg); }
+    100% { transform: translate(115px, 175px) skewX(-15deg); }
+}
+
+@keyframes leg-right {
+    0% { transform: translate(135px, 175px) skewX(15deg); }
+    100% { transform: translate(135px, 175px) skewX(-15deg); }
+}
+
+.dancing .left-leg {
+    transform-origin: 0 40px;
+    animation: leg-left 0.6s ease-out infinite alternate;
+}
+
+.dancing .right-leg {
+    transform-origin: 0 40px;
+    animation: leg-right 0.6s ease-out infinite alternate;
+}
+
+.main {
+    fill: black;
+}
+
+.accent {
+    fill: red;
+}
+
+.skin {
+    stroke: white;
+    fill: black;
+    stroke-width: 2;
+}
+
+.feature {
+    fill: white;
+}
+
+.cloth {
+    fill: red;
+    stroke: black;
+    stroke-width: 2;
+}
+
+
+</style>
+<defs>
+    
+    <path id="cat-head-shape" d="M-1 0 L15 0 Q30 0 30 -20 L33 -60 Q10 -40 5 -40 L-2 -40" />
+    <path id="cat-ear" d="M20 -40 L31 -55 L28 -35" />
+    <line id="cat-whisker" x1="-40" y1="0" x2="40" y2="0" stroke="black" stroke-linecap="round" stroke-width="6" />
+    <path id="limb" d="M-7 0 L-7 20 Q-7 30 0 30 Q7 30 7 20 L 7 0" />
+    <path id="cape" d="M-1 0 L25 0 L18 10 L 35 40 L15 50 L-1 45" />
+    <g id="bell">
+        <circle cx="0" cy="0" r="8" fill="yellow" stroke="black" />
+        <circle cx="-2" cy="-4" r="3" fill="white" />
+        <circle cx="-3" cy="2" r="2.5" fill="black" />
+        <circle cx="3" cy="2" r="2.5" fill="black" />
+        <line x1="0" y1="2" x2="0" y2="8" stroke="black" />
+    </g>
+    <g id="eye">
+        <circle cx="0" cy="0" r="8" fill="white" stroke="black" />
+        <circle class="eye-black" cx="-2" cy="0" r="7" fill="black" />
+        <line class="eye-line" x1="-2" y1="-3" x2="-2" y2="3" stroke="white" stroke-linecap="round" stroke-width="2" />
+    </g>
+
+    <path id="smile" stroke="white" d="M-8 0 Q0 7 8 0" stroke-width="2" />
+
+    <path id="crown" d="M-5 0 Q0 -20 10 -30 L10 0" />
+
+    <g id="cat-head">
+        <g transform="translate(0, -40)">
+            <use href="#crown" class="main"  />
+            <use href="#crown" class="main" transform=" scale(-1, 1)" />
+            <path d="M-6 -7 Q0 -13 6 -7 Q0 0 -6 -7" class="accent" />
+        </g>
+
+        <use href="#cat-whisker" transform="translate(0, -20)"  />
+        <use href="#cat-whisker" transform="translate(0, -20) rotate(15)"  />
+        <use href="#cat-whisker" transform="translate(0, -20) rotate(-15)"  />
+
+        <use href="#cat-head-shape" class="skin"  />
+        <use href="#cat-ear" class="feature"  />
+        <use href="#cat-head-shape" class="skin" transform="scale(-1, 1)"  />
+        <use href="#cat-ear" class="feature" transform="scale(-1, 1)"  />
+
+        <use href="#bell" transform="translate(0, 10)"  />
+    </g>
+</defs>
+  
+<g id="ccc" class="dancing">
+    <g class="limbs">
+        <use href="#limb" class="left-hand skin" />
+        <use href="#limb" class="right-hand skin" />
+        <use href="#limb" class="left-leg skin" />
+        <use href="#limb" class="right-leg skin" />
+    </g>
+
+    <g class="body">
+        <use href="#cape" class="cloth"  transform="translate(125, 145)" />
+        <use href="#cape" class="cloth"  transform="translate(125, 145) scale(-1, 1)" />
+
+        <path fill="black" d="M110 135 L140 135 L125 170" />
+        <path fill="white" d="M108 160 L142 160 L125 185" />
+        <line x1="125" y1="160" x2="125" y2="178" stroke="black" stroke-width="4" />
+        <line x1="119" y1="166" x2="131" y2="166" stroke="black" stroke-width="4" />
+    </g>
+
+    <g class="head">
+        <use href="#cat-head" transform="translate(125, 150)"  />
+        <use href="#eye" transform="translate(112, 125)"  />
+        <use href="#eye" transform="translate(138, 125)"  />
+        <use href="#smile" transform="translate(125, 140)"  />
+    </g>
+</g>
+
+
+</svg>
+
+</body>
+</html>

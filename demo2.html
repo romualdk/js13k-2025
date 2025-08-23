@@ -1,0 +1,94 @@
+<html>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f0f0f0;
+}
+
+.floor {
+  width: 600px;
+  height: 600px;
+  background: #ddd;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 20s linear infinite;
+}
+
+.square {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #3498db;
+
+  /* Place square at center, rotate to angle, move outward */
+  top: 50%;
+  left: 50%;
+  transform: rotate(var(--angle)) translateX(250px) rotate(calc(-1 * calc(var(--circle-rotation, 0deg) + var(--angle))));
+  transform-origin: center center;
+  margin-left: -20px;
+  margin-top: -20px;
+}
+
+/* Animate the circle rotation */
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const circle = document.querySelector('.circle');
+  const squares = document.querySelectorAll('.square');
+
+  function updateRotation() {
+    const style = getComputedStyle(circle);
+    const matrix = style.transform;
+
+    if (matrix !== 'none') {
+      const values = matrix.split('(')[1].split(')')[0].split(',');
+      const a = parseFloat(values[0]);
+      const b = parseFloat(values[1]);
+      const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+
+      squares.forEach(square => {
+        square.style.setProperty('--circle-rotation', `${angle}deg`);
+      });
+    }
+
+    requestAnimationFrame(updateRotation);
+  }
+
+  updateRotation();
+});
+</script>
+<body>
+<div class="floor">
+  <div class="circle">
+    <div class="square" style="--angle: 0deg;"></div>
+    <div class="square" style="--angle: 60deg;"></div>
+    <div class="square" style="--angle: 120deg;"></div>
+    <div class="square" style="--angle: 180deg;"></div>
+    <div class="square" style="--angle: 240deg;"></div>
+    <div class="square" style="--angle: 300deg;"></div>
+  </div>
+</div>
+
+
+</body>
+</html>

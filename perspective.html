@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <style>
+            body {
+                background-color: #eee;
+                perspective: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            #surface {
+                width: 800px;
+                height: 400px;
+                background-color: green;
+                transform: rotateX(60deg) translateY(100px);
+                transform-style: preserve-3d;
+            }
+
+            .cpu {
+                position: absolute;
+            }
+
+            #cpu1 {
+                transform-style: preserve-3d;
+                animation: orbit 12s forwards infinite;
+                animation-timing-function: linear;
+            }
+
+            #cpu2 {
+                transform: translateX(400px) translateZ(20px) translateY(340px);
+                transform-style: preserve-3d;
+                width: 1px;
+                height: 1px;
+            }
+
+            .cpu img {
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                transform: translate(-33px, -50px) rotateX(-60deg);
+            }
+
+            @keyframes orbit {
+                from {  transform: rotate(0deg) translateX(50px) translateZ(20px) rotate(0deg); }
+                to   {  transform: rotate(360deg) translateX(50px) translateZ(20px) rotate(-360deg); }
+            }
+
+            #flock {
+                transform-style: preserve-3d;
+                position: absolute;
+                transform: translate(400px, 200px)
+            }
+            #center {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                position: absolute;
+                left: 395px;
+                top: 195px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- https://css-tricks.com/how-css-perspective-works/ -->
+        <div id="surface">
+            <div id="center"></div>
+            <div id="flock"><div id="cpu1" class="cpu"><img src="cat.svg" /></div></div>
+            <div id="cpu2" class="cpu"><img src="cat.svg" /></div>
+        </div>
+    </body>
+</html>
